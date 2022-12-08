@@ -18,6 +18,6 @@ public class UserInformationServiceImpl implements UserInformationService {
 
     @Override
     public UserInformation save(UserInformation userInformation) {
-        return null;
+        return userInformationRepository.save(userInformation);
     }
 }

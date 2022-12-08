@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/user")
-public class UserController {
+    public class UserController {
     private final UserInformationService service;
     private final UserInformationMapper mapper;
 
@@ -24,5 +26,15 @@ public class UserController {
     public UserInformationResponseDto getById(@PathVariable Long id) {
         UserInformation user = service.get(id);
         return mapper.toDto(user);
+    }
+
+    @GetMapping("/inject")
+    public String injectUser(){
+        UserInformation testUser = new UserInformation();
+        testUser.setName("UserName");
+        testUser.setLastName("UserLastName");
+        testUser.setDateOfBirth(LocalDate.of(1999, 2, 10));
+        UserInformation save = service.save(testUser);
+        return save + "User are injected!";
     }
 }

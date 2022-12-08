@@ -10,6 +10,7 @@ public class UserInformationResponseDto {
     private Long id;
     private String name;
     private String lastName;
+    private int age;
 
     public int getAge(LocalDate birthDate) {
         return dateService.getAge(birthDate);
