@@ -21,4 +21,30 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @AutoConfigureMockMvc
 class UserControllerTest {
+
+    @MockBean
+    private UserInformationService userInformationService;
+
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Autowired
+    private MockMvc mockMvc;
+    @BeforeEach
+    private void setUp() {
+        RestAssuredMockMvc.mockMvc(mockMvc);
+    }
+    @Test
+    public void shouldShowUserById_Ok() {
+        UserInformation testUser = new UserInformation();
+        testUser.setId(50L);
+        testUser.setName("UserName");
+        testUser.setLastName("UserLastName");
+        testUser.setDateOfBirth(LocalDate.of(1999, 2, 10));
+        Mockito.when(userInformationService.get(50L)).thenReturn(testUser);
+
+        RestAssuredMockMvc.when()
+                .get("/user/50")
+                .then()
+                .statusCode(200)
+                .body("id", Matchers.equalTo("50"));
+    }
 }

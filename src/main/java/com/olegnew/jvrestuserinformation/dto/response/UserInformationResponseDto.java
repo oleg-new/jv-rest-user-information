@@ -2,17 +2,24 @@ package com.olegnew.jvrestuserinformation.dto.response;
 
 import com.olegnew.jvrestuserinformation.service.DateService;
 import java.time.LocalDate;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserInformationResponseDto {
-    private DateService dateService;
     private Long id;
     private String name;
     private String lastName;
     private int age;
 
     public int getAge(LocalDate birthDate) {
+        DateService dateService = new DateService();
         return dateService.getAge(birthDate);
     }
 }

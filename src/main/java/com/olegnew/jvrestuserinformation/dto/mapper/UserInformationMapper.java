@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserInformationMapper {
-    DateService dateService = new DateService();
+    private final DateService dateService = new DateService();
+
     public UserInformationResponseDto toDto(UserInformation userInformation) {
         UserInformationResponseDto responseDto = new UserInformationResponseDto();
         responseDto.setId(userInformation.getId());
@@ -17,7 +18,8 @@ public class UserInformationMapper {
         responseDto.setAge(dateService.getAge(userInformation.getDateOfBirth()));
         return responseDto;
     }
-    public UserInformation toModel(UserInformationRequestDto requestDto){
+
+    public UserInformation toModel(UserInformationRequestDto requestDto) {
         UserInformation userInformation = new UserInformation();
         userInformation.setName(requestDto.getName());
         userInformation.setLastName(requestDto.getLastName());

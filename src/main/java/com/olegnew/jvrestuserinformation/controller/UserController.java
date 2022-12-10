@@ -4,16 +4,15 @@ import com.olegnew.jvrestuserinformation.dto.mapper.UserInformationMapper;
 import com.olegnew.jvrestuserinformation.dto.response.UserInformationResponseDto;
 import com.olegnew.jvrestuserinformation.model.UserInformation;
 import com.olegnew.jvrestuserinformation.service.UserInformationService;
+import java.time.LocalDate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
-
 @RestController
 @RequestMapping("/user")
-    public class UserController {
+public class UserController {
     private final UserInformationService service;
     private final UserInformationMapper mapper;
 
@@ -29,7 +28,7 @@ import java.time.LocalDate;
     }
 
     @GetMapping("/inject")
-    public String injectUser(){
+    public String injectUser() {
         UserInformation testUser = new UserInformation();
         testUser.setName("UserName");
         testUser.setLastName("UserLastName");
@@ -38,3 +37,4 @@ import java.time.LocalDate;
         return save + "User are injected!";
     }
 }
+
