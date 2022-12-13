@@ -2,11 +2,8 @@ package com.olegnew.jvrestuserinformation.dto.response;
 
 import com.olegnew.jvrestuserinformation.service.DateService;
 import java.time.LocalDate;
-
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data

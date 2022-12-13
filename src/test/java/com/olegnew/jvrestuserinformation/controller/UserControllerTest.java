@@ -1,6 +1,7 @@
 package com.olegnew.jvrestuserinformation.controller;
 
 import com.olegnew.jvrestuserinformation.model.UserInformation;
+import com.olegnew.jvrestuserinformation.service.DateService;
 import com.olegnew.jvrestuserinformation.service.UserInformationService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import java.time.LocalDate;
@@ -15,6 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 
 @ExtendWith(SpringExtension.class)
@@ -35,16 +38,24 @@ class UserControllerTest {
     @Test
     public void shouldShowUserById_Ok() {
         UserInformation testUser = new UserInformation();
-        testUser.setId(50L);
-        testUser.setName("UserName");
-        testUser.setLastName("UserLastName");
-        testUser.setDateOfBirth(LocalDate.of(1999, 2, 10));
+        DateService dateService = new DateService();
+        Long id = 50L;
+        String name = "UserName";
+        String lastName = "UserLastName";
+        LocalDate dateOfBirth = LocalDate.of(1999, 2, 10);
+        int age = dateService.getAge(dateOfBirth);
+        testUser.setId(id);
+        testUser.setName(name);
+        testUser.setLastName(lastName);
+        testUser.setDateOfBirth(dateOfBirth);
         Mockito.when(userInformationService.get(50L)).thenReturn(testUser);
-
         RestAssuredMockMvc.when()
                 .get("/user/50")
                 .then()
                 .statusCode(200)
-                .body("id", Matchers.equalTo("50"));
+                .body("id", Matchers.equalTo(id.intValue()))
+                .body("name", Matchers.equalTo(name))
+                .body("lastName", Matchers.equalTo(lastName))
+                .body("age", Matchers.equalTo(age));
     }
 }
