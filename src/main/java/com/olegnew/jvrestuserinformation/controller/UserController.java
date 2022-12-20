@@ -26,15 +26,4 @@ public class UserController {
         UserInformation user = service.get(id);
         return mapper.toDto(user);
     }
-
-    @GetMapping("/inject")
-    public String injectUser() {
-        UserInformation testUser = new UserInformation();
-        testUser.setName("UserName");
-        testUser.setLastName("UserLastName");
-        testUser.setDateOfBirth(LocalDate.of(1999, 2, 10));
-        UserInformation save = service.save(testUser);
-        return save + "User are injected!";
-    }
 }
-
